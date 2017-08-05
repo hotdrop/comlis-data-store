@@ -10,14 +10,12 @@ class CompanyRepository {
     private val DATABASE_NO = 1
     private val LIST_KEY = "companies"
 
-    /**
-     * List側でデータを保持する
-     */
     fun save(company: Company) {
-        // TODO キーはスクレイピングアプリ側ではなく、こちら側で管理する。
-        //      キーは一意の連番にする。
+        // TODO Redisに保存するKey情報を外部から指定できてしまうとKeyの一意性や体系が壊れる可能性がるためこのアプリ内で発行＆管理する。
         val jedis = getJedis()
-        jedis.rpush(LIST_KEY, company.jsonContents)
+        // 保存形式をSetにするかListにするか・・
+        // スクレイピング１回で送られてくるデータ単位でListの塊にするか、でもそれだとメンテナンス性が下がるような
+        //jedis.rpush(LIST_KEY, company.jsonContents)
     }
 
     /**

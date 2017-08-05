@@ -7,13 +7,13 @@ import redis.clients.jedis.Jedis
 class KeyRepository {
 
     private val DATABASE_NO = 0
-    private val LAST_COMPANY_KEY = "last_company_key"
+    private val LAST_ITEM_KEY = "last_item_key"
     private val SENT_KEY = "sent_key"
 
-    fun getLastCompanyKey() = find(LAST_COMPANY_KEY)
+    fun getLastItemKey() = find(LAST_ITEM_KEY)
 
-    fun saveLastCompanyKey(value: String) {
-        save(LAST_COMPANY_KEY, value)
+    fun saveLastItemKey(value: String) {
+        save(LAST_ITEM_KEY, value)
     }
 
     fun getSentToMobileAppCompanyKey() = find(SENT_KEY)
@@ -32,6 +32,6 @@ class KeyRepository {
         jedis.set(key, value)
     }
 
-    // TODO 外部に切り出す
+    // TODO IPアドレスやポート番号は外部に切り出す
     private fun getJedis(): Jedis = Jedis("127.0.0.1", 3000).also { it.select(DATABASE_NO) }
 }

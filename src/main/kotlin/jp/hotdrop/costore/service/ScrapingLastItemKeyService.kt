@@ -5,16 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ScrapingLastCompanyKeyService {
+class ScrapingLastItemKeyService {
 
     @Autowired
     private lateinit var repository: KeyRepository
 
     fun find(): String {
-        return repository.getLastCompanyKey()
+        return repository.getLastItemKey()
     }
 
     fun save(lastCompanyKey: String) {
-        repository.saveLastCompanyKey(lastCompanyKey)
+        repository.saveLastItemKey(lastCompanyKey)
     }
 }
