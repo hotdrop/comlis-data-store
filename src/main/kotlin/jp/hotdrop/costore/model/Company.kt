@@ -9,9 +9,4 @@ data class Company(
         val salaryHigh: Int? = null,
         val url: String? = null,
         val note: String? = null
-) {
-    init {
-        // IlleagalArgumentExceptionを起こすのは良くないか・・ステータス400にするべきか
-        require(name != "") { "" }
-    }
-}
+)
