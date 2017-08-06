@@ -22,9 +22,9 @@ class KeyRepository {
         save(SENT_KEY, value)
     }
 
-    private fun find(key: String): String {
+    private fun find(key: String): String? {
         val jedis = getJedis()
-        return if(jedis.exists(key)) jedis.get(key) else ""
+        return if(jedis.exists(key)) jedis.get(key) else null
     }
 
     private fun save(key: String, value: String) {
@@ -33,5 +33,5 @@ class KeyRepository {
     }
 
     // TODO IPアドレスやポート番号は外部に切り出す
-    private fun getJedis(): Jedis = Jedis("127.0.0.1", 3000).also { it.select(DATABASE_NO) }
+    private fun getJedis() = Jedis("127.0.0.1", 3000).also { it.select(DATABASE_NO) }
 }

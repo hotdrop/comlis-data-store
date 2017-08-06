@@ -10,9 +10,7 @@ class ScrapingLastItemKeyService {
     @Autowired
     private lateinit var repository: KeyRepository
 
-    fun find(): String {
-        return repository.getLastItemKey()
-    }
+    fun find() = repository.getLastItemKey()
 
     fun save(lastCompanyKey: String) {
         repository.saveLastItemKey(lastCompanyKey)

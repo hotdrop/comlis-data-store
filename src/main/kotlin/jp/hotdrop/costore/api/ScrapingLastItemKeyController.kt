@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import jp.hotdrop.costore.service.ScrapingLastItemKeyService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -24,7 +26,8 @@ class ScrapingLastItemKeyController {
     @ApiOperation(value = "スクレイピングで取得したコンテンツデータを一意に識別する情報を取得",
             notes = "前回の続きからスクレイピングを開始するための目印情報を取得します。")
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    fun lastItemKey(): String {
-        return service.find()
+    fun lastItemKey(): ResponseEntity<String> {
+        val itemKey = service.find() ?: return ResponseEntity(HttpStatus.NO_CONTENT)
+        return ResponseEntity.ok(itemKey)
     }
 }
