@@ -8,7 +8,7 @@ import redis.clients.jedis.Jedis
 class CompanyRepository {
 
     private val DATABASE_NO = 1
-    private val LIST_KEY = "companies"
+    private val LIST_KEY = "company"
 
     fun save(company: Company) {
         // TODO Redisに保存するKey情報を外部から指定できてしまうとKeyの一意性や体系が壊れる可能性がるためこのアプリ内で発行＆管理する。
@@ -18,10 +18,9 @@ class CompanyRepository {
         //jedis.rpush(LIST_KEY, company.jsonContents)
     }
 
-    /**
-     * Listからポップする
-     */
-    fun find(key: String) {
+    fun find(key: String): List<Company> {
+        // TODO
+        return arrayListOf()
     }
 
     // TODO 外部に切り出す

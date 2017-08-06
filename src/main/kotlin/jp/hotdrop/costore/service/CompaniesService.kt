@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ScrapingCompanyService {
+class CompaniesService {
 
     @Autowired
     private lateinit var repository: CompanyRepository
@@ -17,5 +17,10 @@ class ScrapingCompanyService {
         }
         // TODO coroutine使った方がいい
         companies.forEach{ repository.save(it) }
+    }
+
+    fun get(key: String): List<Company> {
+        // TODO keyのバリデーションチェック
+        return repository.find(key)
     }
 }
