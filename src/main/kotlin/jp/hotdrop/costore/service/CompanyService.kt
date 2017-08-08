@@ -2,7 +2,6 @@ package jp.hotdrop.costore.service
 
 import jp.hotdrop.costore.model.Company
 import jp.hotdrop.costore.repository.CompanyRepository
-import jp.hotdrop.costore.repository.KeyRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -10,16 +9,16 @@ import org.springframework.stereotype.Service
 class CompanyService {
 
     @Autowired
-    private lateinit var companyRepository: CompanyRepository
-    @Autowired
-    private lateinit var keyRepository: KeyRepository
-
-    fun findUnAcquired(): List<Company>? =
-            companyRepository.findUnAcquired()
+    private lateinit var repository: CompanyRepository
 
     fun save(companies: List<Company>) {
-        val idxKey = keyRepository.findPreviousAddCompanyIndexKey()
-        val currentIdxKey = companyRepository.save(idxKey, companies)
-        keyRepository.saveCompanyIndexKey(currentIdxKey)
+        repository.save(companies)
+    }
+
+    fun loadUnAcquired(): List<Company>? {
+        val companies = repository.loadUnAcquired() ?: return null
+        // 本当は一旦送信し終わった後にこれをやりたい。
+        repository.updateAcquired(companies.map { it.id })
+        return companies
     }
 }
