@@ -4,9 +4,7 @@ data class Company(
         val name: String = "",
         val overView: String? = null,
         val workPlace: String? = null,
-        val employeeNum: Int? = null,
-        val salaryLow: Int? = null,
-        val salaryHigh: Int? = null,
-        val url: String? = null,
-        val note: String? = null
+        val employeeNum: String? = null,
+        val salaryLow: String? = null,
+        val salaryHigh: String? = null
 )

@@ -8,21 +8,41 @@ import redis.clients.jedis.Jedis
 class CompanyRepository {
 
     private val DATABASE_NO = 1
-    private val LIST_KEY = "company"
 
-    fun save(company: Company) {
-        // TODO Redisに保存するKey情報を外部から指定できてしまうとKeyの一意性や体系が壊れる可能性がるためこのアプリ内で発行＆管理する。
+    private val INDEX_KEY = "indices"
+
+    private fun Company.toHashMap(): HashMap<String, String?> =
+            hashMapOf("name" to this.name,
+            "overView" to this.overView,
+            "workPlace" to this.workPlace,
+            "employeeNum" to this.employeeNum,
+            "salaryLow" to this.salaryLow,
+            "salaryHigh" to this.salaryHigh)
+
+    fun save(previousKeyIndex: Int, companies: List<Company>): Int {
+
+        if(companies.isEmpty()) {
+            return previousKeyIndex
+        }
+
         val jedis = getJedis()
-        // 保存形式をSetにするかListにするか・・
-        // スクレイピング１回で送られてくるデータ単位でListの塊にするか、でもそれだとメンテナンス性が下がるような
-        //jedis.rpush(LIST_KEY, company.jsonContents)
+        var currentKeyIndex = previousKeyIndex
+
+        companies.forEach {
+            currentKeyIndex++
+            val strCurrentKey = currentKeyIndex.toString()
+            jedis.sadd(INDEX_KEY, strCurrentKey)
+            jedis.hmset(strCurrentKey, it.toHashMap())
+        }
+
+        return currentKeyIndex
     }
 
-    fun find(key: String): List<Company> {
-        // TODO
-        return arrayListOf()
+    fun findUnAcquired(): List<Company>? {
+        val jedis = getJedis()
+        return mutableListOf()
     }
 
-    // TODO 外部に切り出す
-    private fun getJedis(): Jedis = Jedis("127.0.0.1", 3000).also { it.select(DATABASE_NO) }
+    // TODO 接続情報は後で外部に切り出す
+    private fun getJedis() = Jedis("127.0.0.1", 3000).also { it.select(DATABASE_NO) }
 }
