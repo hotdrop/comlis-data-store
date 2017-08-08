@@ -67,7 +67,7 @@ class DatabaseClient(selectNo: DatabaseNo) {
      * インデックスとして持っているKeyValueのSetから削除することでこのメソッドの機能を実現する。
      */
     fun deleteToHash(key: String) {
-        jedis.del(key)
+        jedis.srem(INDEX_KEY_FOR_SORT, key)
     }
 
 }
