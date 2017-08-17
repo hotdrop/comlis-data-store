@@ -62,11 +62,10 @@ class DatabaseClient(selectNo: DatabaseNo) {
     }
 
     /**
-     * Hash型のValueを削除する・・つもりであったが
-     * Redisで未取得フラグなど使うのは微妙でそれだったらMySQLでも使用した方が良いと考え、
-     * インデックスとして持っているKeyValueのSetから削除することでこのメソッドの機能を実現する。
+     * 対応するkeyを削除する。
+     * Hash型のValueは削除しないのでそのまま残る。
      */
-    fun deleteToHash(key: String) {
+    fun removeToKey(key: String) {
         jedis.srem(INDEX_KEY_FOR_SORT, key)
     }
 

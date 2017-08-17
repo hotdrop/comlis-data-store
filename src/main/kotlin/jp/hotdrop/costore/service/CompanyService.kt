@@ -15,10 +15,11 @@ class CompanyService {
         repository.save(companies)
     }
 
-    fun loadUnAcquired(): List<Company>? {
-        val companies = repository.loadUnAcquired() ?: return null
+    fun load(): List<Company>? {
+        val companies = repository.load() ?: return null
         // 本当は一旦送信し終わった後にこれをやりたい。
         repository.updateAcquired(companies.map { it.id })
+
         return companies
     }
 }

@@ -26,7 +26,7 @@ class CompanyController {
     @ApiOperation(value = "会社情報取得", notes = "保存されている会社情報を取得します。過去取得した会社情報は取得しません。")
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     fun companies(): ResponseEntity<List<Company>> {
-        val companies = service.loadUnAcquired() ?: return ResponseEntity(HttpStatus.NO_CONTENT)
+        val companies = service.load() ?: return ResponseEntity(HttpStatus.NO_CONTENT)
         return ResponseEntity.ok(companies)
     }
 }
