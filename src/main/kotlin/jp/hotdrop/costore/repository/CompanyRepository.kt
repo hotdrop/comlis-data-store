@@ -45,7 +45,7 @@ class CompanyRepository {
 
         val companies = mutableListOf<Company>()
         val aggregationDataCount = results.size / Company.FIELD_NUM
-        (0..aggregationDataCount - 1)
+        (0 until aggregationDataCount)
                 .map { it -> it * Company.FIELD_NUM }
                 .mapTo(companies) {
                     Company(
