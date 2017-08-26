@@ -15,9 +15,7 @@ APIのテストはSwagger-uiで行なっております。
 
 ## dockerコンテナのRedisサーバー起動
 Redisサーバーはdockerコンテナ上で起動させています。  
-dockerイメージは`redis`を使用しています。  
-なお、`docker run`時に`-p 3000:6379`を指定しています。この3000ポートは特に意味はありません。  
-現在はコード中にRedisサーバーへの接続情報を直書きしていますので変更する場合は合わせてコードも修正する必要があります。
+dockerイメージは`redis`を使用しています。    
 
 ## Redisとの接続情報
 src/main/resourceにある`application.yml`に接続先サーバ及びポートを定義しています。
