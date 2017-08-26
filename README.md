@@ -6,30 +6,36 @@ API設計やサーバーサイドkotlinの勉強を兼ねているので良い�
 * Spring Boot v1.5.4.RELEASE
 * Kotlin v1.1.4
 * Redis v4.0.1
-> ※ Redisはdockerコンテナ（image `redis`）を使用  
-Redisとの接続はjedisを使用  
+* docker for mac v17.06.1
+* docker-compose 1.14.0
+> Spring BootとRedisはそれぞれ別々のdockerコンテナで起動します。  
+使用しているイメージ等はdockerディレクトリのdocker-compose.ymlを確認ください。
 APIのテストはSwagger-uiで行なっております。
 
 # Usage
 使い方です。
 
-## dockerコンテナのRedisサーバー起動
-Redisサーバーはdockerコンテナ上で起動させています。  
-dockerイメージは`redis`を使用しています。    
+## Step1
+本アプリはjarファイルを実行します。jarファイル置き場を適当に決めます。
+また、Redisのdbファイルの置き場所も決めます。
+決めたら`docker/docker-compose.yml`の`volumes`を修正します。
 
-## Redisとの接続情報
-src/main/resourceにある`application.yml`に接続先サーバ及びポートを定義しています。
-
-## Spring Boot起動
-Spring Bootのルートディレクトリで以下のコマンドを実行します。
+## Step2
+gradlewのbuildを実行し、アプリのjarファイルを作成します。
 ```command
-./gradlew bootRun
+./gradlew build
 ```
-起動に成功したら以下のようなメッセージが出力されます。
-> Started ApplicationKt in XXX seconds (JVM running for ...)
+build/libsディレクトリに`comlis-rest-service-0.1.0.jar`が出来ているはずです。
+それをStep1で決めたディレクトリにコピーします。
 
-## Swagger-ui表示API検証
-ブラウザで以下にアクセスします。
+## Step3
+`docker-compose.yml`が置いてあるディレクトリに移動し、以下のコマンドを実行します。
+```command
+docker-compose up
+```
+
+## Step4
+Redis及びSpring-bootの起動ができたらブラウザで以下にアクセスします。
 ```url
 http://localhost:8080/swagger-ui.html
 ```

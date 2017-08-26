@@ -1,0 +1,16 @@
+redis:
+  image: redis
+  volumes:
+    - ~/dockerShare/comlis-store:/data
+  ports:
+    - "6379:6379"
+  command: redis-server
+spring-boot:
+  image: bankmonitor/spring-boot
+  volumes:
+    - ~/dockerShare/comlis-store:/app
+  links:
+    - redis:redis
+  ports:
+    - "8080:8080"
+  command: java -jar ./comlis-rest-service-0.1.0.jar

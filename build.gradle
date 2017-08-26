@@ -20,7 +20,7 @@ apply plugin: "kotlin-spring"
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'gs-rest-service'
+    baseName = 'comlis-rest-service'
     version = '0.1.0'
 }
 
