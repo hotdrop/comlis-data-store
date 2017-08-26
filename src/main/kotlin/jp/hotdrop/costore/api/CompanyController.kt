@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("companies")
-class CompanyController {
-
-    @Autowired
-    private lateinit var service: CompanyService
+class CompanyController @Autowired constructor(
+        val service: CompanyService
+) {
 
     @ApiOperation(value = "会社情報保存", notes = "会社情報を保存します。複数指定も可能です。")
     @RequestMapping(method = arrayOf(RequestMethod.POST))

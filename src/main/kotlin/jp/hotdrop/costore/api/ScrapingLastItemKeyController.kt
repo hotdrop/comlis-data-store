@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("scraping/lastItemKey")
-class ScrapingLastItemKeyController {
-
-    @Autowired
-    private lateinit var service: ScrapingLastItemKeyService
+class ScrapingLastItemKeyController @Autowired constructor(
+        val service: ScrapingLastItemKeyService
+) {
 
     @ApiOperation(value = "スクレイピングで取得したコンテンツデータを一意に識別する情報を保存",
             notes = "前回の続きからスクレイピングを開始するための目印情報を保存します。")

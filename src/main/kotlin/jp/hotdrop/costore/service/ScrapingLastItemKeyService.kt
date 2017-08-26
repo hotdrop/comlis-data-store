@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ScrapingLastItemKeyService {
-
-    @Autowired
-    private lateinit var repository: KeyRepository
+class ScrapingLastItemKeyService @Autowired constructor(
+        val repository: KeyRepository
+) {
 
     fun find(): String? =
             repository.findLastItemKey()

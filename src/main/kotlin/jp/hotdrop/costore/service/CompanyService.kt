@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class CompanyService {
-
-    @Autowired
-    private lateinit var repository: CompanyRepository
+class CompanyService @Autowired constructor(
+        val repository: CompanyRepository
+) {
 
     fun save(companies: List<Company>) {
         repository.save(companies)
