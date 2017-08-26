@@ -5,7 +5,7 @@ API設計やサーバーサイドkotlinの勉強を兼ねているので良い�
 # Environment
 * Spring Boot v1.5.4.RELEASE
 * Kotlin v1.1.4
-* Redis v4.0.1 
+* Redis v4.0.1
 > ※ Redisはdockerコンテナ（image `redis`）を使用  
 Redisとの接続はjedisを使用  
 APIのテストはSwagger-uiで行なっております。
@@ -21,12 +21,6 @@ dockerイメージは`redis`を使用しています。
 
 ## Redisとの接続情報
 src/main/resourceにある`application.yml`に接続先サーバ及びポートを定義しています。
-```application.xml
-spring:
-  redis:
-    host: '127.0.0.1'
-    port: 7396
-```
 
 ## Spring Boot起動
 Spring Bootのルートディレクトリで以下のコマンドを実行します。
