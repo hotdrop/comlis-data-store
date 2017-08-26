@@ -1,12 +1,21 @@
 package jp.hotdrop.costore.repository
 
 import jp.hotdrop.costore.model.Company
+import jp.hotdrop.costore.repository.config.RedisProperties
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
+import redis.clients.jedis.SortingParams
 
 @Repository
-class CompanyRepository {
+class CompanyRepository @Autowired constructor(
+        redisProperties: RedisProperties
+) {
 
-    private val db = DatabaseClient(DatabaseNo.Company)
+    private val INDEX_KEY_FOR_SORT = "indices"
+
+    private val jedis by lazy {
+        JedisClient(DatabaseNo.Company, redisProperties).create()
+    }
 
     /**
      * 拡張関数
@@ -35,13 +44,17 @@ class CompanyRepository {
 
     fun save(companies: List<Company>) {
         companies.forEach { company ->
-            db.saveToHash(company.id, company.toHashMap())
+            // RedisはHash型をsortする際、別途キーリストが必要となるのでSet型のキーリストを作成する。
+            jedis.sadd(INDEX_KEY_FOR_SORT, company.id)
+            jedis.hmset(company.id, company.toHashMap())
         }
     }
 
     fun load(): List<Company>? {
 
-        val results = db.loadToHash(takeParams) ?: return null
+        // リストには、キーの昇順で、takeParamsの順にvalueが格納される。
+        val sortingParams = SortingParams().asc().get(*takeParams)
+        val results = jedis.sort(INDEX_KEY_FOR_SORT, sortingParams) ?: return null
 
         val companies = mutableListOf<Company>()
         val aggregationDataCount = results.size / Company.FIELD_NUM
@@ -67,6 +80,7 @@ class CompanyRepository {
      * したがって、インデックスとして持っているKeyValueのSetから削除することでこのメソッドの機能を実現する。
      */
     fun updateAcquired(keys: List<String>) {
-        keys.forEach { db.removeToKey(it) }
+        //Hash型のValueは削除しないのでそのまま残る。
+        keys.forEach { jedis.srem(INDEX_KEY_FOR_SORT, it) }
     }
 }
