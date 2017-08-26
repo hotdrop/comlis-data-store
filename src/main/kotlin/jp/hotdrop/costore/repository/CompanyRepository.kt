@@ -8,7 +8,7 @@ import redis.clients.jedis.SortingParams
 
 @Repository
 class CompanyRepository @Autowired constructor(
-        redisProperties: RedisProperties
+        val redisProperties: RedisProperties
 ) {
 
     private val INDEX_KEY_FOR_SORT = "indices"

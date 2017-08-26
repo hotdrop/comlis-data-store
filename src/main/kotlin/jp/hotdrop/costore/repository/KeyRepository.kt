@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 @Repository
-class KeyRepository {
+class KeyRepository @Autowired constructor(
+        val redisProperties: RedisProperties
+) {
 
     private val LAST_ITEM_KEY = "last_item_key"
-
-    @Autowired
-    lateinit var redisProperties: RedisProperties
 
     private val jedis by lazy {
         JedisClient(DatabaseNo.Company, redisProperties).create()
