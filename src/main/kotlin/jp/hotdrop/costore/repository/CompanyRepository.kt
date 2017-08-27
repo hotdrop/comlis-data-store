@@ -44,7 +44,7 @@ class CompanyRepository @Autowired constructor(
 
     fun save(companies: List<Company>) {
         companies.forEach { company ->
-            // RedisはHash型をsortする際、別途キーリストが必要となるのでSet型のキーリストを作成する。
+            // Hash型をsortする際、別途キーセットが必要となるのでsaddしている。
             jedis.sadd(INDEX_KEY_FOR_SORT, company.id)
             jedis.hmset(company.id, company.toHashMap())
         }
@@ -52,8 +52,7 @@ class CompanyRepository @Autowired constructor(
 
     fun load(): List<Company>? {
 
-        // リストには、キーの昇順で、takeParamsの順にvalueが格納される。
-        val sortingParams = SortingParams().asc().get(*takeParams)
+        val sortingParams = SortingParams().asc().get(*takeParams).alpha()
         val results = jedis.sort(INDEX_KEY_FOR_SORT, sortingParams) ?: return null
 
         val companies = mutableListOf<Company>()
