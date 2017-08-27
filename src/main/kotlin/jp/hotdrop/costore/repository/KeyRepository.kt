@@ -12,7 +12,7 @@ class KeyRepository @Autowired constructor(
     private val LAST_ITEM_KEY = "last_item_key"
 
     private val jedis by lazy {
-        JedisClient(DatabaseNo.Company, redisProperties).create()
+        JedisClient(DatabaseNo.Key, redisProperties).create()
     }
 
     fun findLastItemKey(): String? =
