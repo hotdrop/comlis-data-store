@@ -75,9 +75,8 @@ class CompanyRepository @Autowired constructor(
 
     /**
      * 引数のkeysを取得済みに更新する。
-     * データそのものは後々再取得したいので削除することはしたくない。
-     * そのため、取得済みフラグなるカラムを追加することを検討したが、Redisで未取得フラグを使うのは微妙であった。
-     * したがって、インデックスとして持っているKeyValueのSetから削除することでこのメソッドの機能を実現する。
+     * 取得済みフラグカラムの追加を検討したが、Redisでそれを使うのは微妙。
+     * そのため、インデックスとして持っているKeyValueのSetから削除することで実現する。
      */
     fun updateAcquired(keys: List<String>) {
         //Hash型のValueは削除しないのでそのまま残る。

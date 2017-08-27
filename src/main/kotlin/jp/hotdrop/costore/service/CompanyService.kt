@@ -11,14 +11,17 @@ class CompanyService @Autowired constructor(
 ) {
 
     fun save(companies: List<Company>) {
+        // TODO 送信された値のバリデーションチェックが必要
         repository.save(companies)
     }
 
-    fun load(): List<Company>? {
-        val companies = repository.load() ?: return null
-        // 本当は一旦送信し終わった後にこれをやりたい。
-        repository.updateAcquired(companies.map { it.id })
+    fun load(): List<Company>? = repository.load()
 
-        return companies
+    /**
+     * 会社情報そのものは削除したくなかったため
+     * 次回以降、取得対象にしないようなカラムを用意してそこを更新する。
+     */
+    fun delete(ids: List<String>) {
+        repository.updateAcquired(ids)
     }
 }
