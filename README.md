@@ -1,4 +1,4 @@
-# colist-data-store
+# comlis-data-store
 Webから取得したデータをコムリスへ送るためのストアアプリ。  
 API設計やサーバーサイドkotlinの勉強を兼ねているので良いコードか疑問。
 
