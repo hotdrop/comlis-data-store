@@ -18,7 +18,7 @@ class ScrapingLastItemKeyController @Autowired constructor(
             notes = "前回の続きからスクレイピングを開始するための目印情報を保存します。")
     @RequestMapping(method = arrayOf(RequestMethod.POST))
     fun lastItemKey(@ApiParam(value = "前回の続きからスクレイピングを開始するための目印情報")
-                    @RequestParam lastItemKey: String) {
+                    @RequestBody lastItemKey: String) {
         service.save(lastItemKey)
     }
 
