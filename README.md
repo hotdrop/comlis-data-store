@@ -4,10 +4,10 @@ API設計やサーバーサイドkotlinの勉強を兼ねているので良い�
 
 # Environment
 * Spring Boot v1.5.4.RELEASE
-* Kotlin v1.1.4
+* Kotlin v1.1.4−3
 * Redis v4.0.1
-* docker for mac v17.06.1
-* docker-compose 1.14.0
+* docker for mac
+* docker-compose
 > Spring BootとRedisはそれぞれ別々のdockerコンテナで起動します。  
 使用しているイメージ等はdockerディレクトリのdocker-compose.ymlを確認ください。
 APIのテストはSwagger-uiで行なっております。
