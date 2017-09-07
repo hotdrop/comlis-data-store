@@ -15,4 +15,8 @@ class ScrapingLastItemKeyService @Autowired constructor(
     fun save(lastCompanyKey: String) {
         repository.saveLastItemKey(lastCompanyKey)
     }
+
+    fun delete() {
+        repository.deleteLastItemKey()
+    }
 }

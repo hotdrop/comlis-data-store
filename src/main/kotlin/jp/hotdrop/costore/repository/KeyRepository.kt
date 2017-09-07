@@ -24,4 +24,8 @@ class KeyRepository @Autowired constructor(
     fun saveLastItemKey(value: String) {
         jedis.set(LAST_ITEM_KEY, value)
     }
+
+    fun deleteLastItemKey() {
+        jedis.del(LAST_ITEM_KEY)
+    }
 }
