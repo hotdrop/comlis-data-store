@@ -36,9 +36,9 @@ class CompanyRepository @Autowired constructor(
     private val takeParams =
             arrayOf("#",
                     "*->name",
-                    "*->overView",
+                    "*->overview",
                     "*->workPlace",
-                    "*->employeeNum",
+                    "*->employeesNum",
                     "*->salaryLow",
                     "*->salaryHigh")
 
