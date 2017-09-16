@@ -21,7 +21,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'comlis-rest-service'
-    version = '0.2.0'
+    version = '1.0.0'
 }
 
 repositories {

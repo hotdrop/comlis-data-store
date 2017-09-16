@@ -23,9 +23,9 @@ class CompanyRepository @Autowired constructor(
      */
     private fun Company.toHashMap(): HashMap<String, String?> =
             hashMapOf("name" to this.name,
-                    "overView" to this.overView,
+                    "overview" to this.overview,
                     "workPlace" to this.workPlace,
-                    "employeeNum" to this.employeeNum,
+                    "employeesNum" to this.employeesNum,
                     "salaryLow" to this.salaryLow,
                     "salaryHigh" to this.salaryHigh)
 
@@ -63,9 +63,9 @@ class CompanyRepository @Autowired constructor(
                     Company(
                             id = results[0 + it],
                             name = results[1 + it],
-                            overView = results[2 + it],
+                            overview = results[2 + it],
                             workPlace = results[3 + it],
-                            employeeNum = results[4 + it],
+                            employeesNum = results[4 + it],
                             salaryLow = results[5 + it],
                             salaryHigh = results[6 + it])
                 }
