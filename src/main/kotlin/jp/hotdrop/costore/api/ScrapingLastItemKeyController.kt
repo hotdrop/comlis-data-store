@@ -14,25 +14,26 @@ class ScrapingLastItemKeyController @Autowired constructor(
         val service: ScrapingLastItemKeyService
 ) {
 
-    @ApiOperation(value = "前回の続きからスクレイピングを開始するための目印情報を保存",
-            notes = "前回の続きからスクレイピングを開始するための目印情報を保存します。")
+    @ApiOperation(value = "Save mark info for starting scraping from the last continuation",
+            notes = "Save mark info for starting scraping from the last continuation.")
     @RequestMapping(method = arrayOf(RequestMethod.POST))
-    fun lastItemKey(@ApiParam(value = "前回の続きからスクレイピングを開始するための目印情報")
+    fun lastItemKey(@ApiParam(value = "mark info for starting scraping from the last continuation.")
                     @RequestBody lastItemKey: String) {
         service.save(lastItemKey)
     }
 
-    @ApiOperation(value = "前回の続きからスクレイピングを開始するための目印情報を取得",
-            notes = "前回の続きからスクレイピングを開始するための目印情報を取得します。")
+    @ApiOperation(value = "Get mark info for starting scraping from the last continuation",
+            notes = "Get mark info for starting scraping from the last continuation.")
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     fun lastItemKey(): ResponseEntity<String> {
         val itemKey = service.find() ?: return ResponseEntity(HttpStatus.NO_CONTENT)
         return ResponseEntity.ok(itemKey)
     }
 
-    @ApiOperation(value = "目印情報を削除(検証用)", notes = "目印情報を削除します。(検証用)")
+    @ApiOperation(value = "Delete mark info for starting scraping from the last continuation",
+            notes = "Delete mark info for starting scraping from the last continuation.")
     @RequestMapping(method = arrayOf(RequestMethod.DELETE))
-    fun lastItemKey(@ApiParam(value = "検証用のためこのパラメータのNumberがコード内のものと一致していないと削除できません。")
+    fun lastItemKey(@ApiParam(value = "It can not be deleted unless the Number of this parameter matches the one in the code for verification.")
                     @RequestParam unlockNum: Int) {
         if(unlockNum == 2980) {
             service.delete()

@@ -1,42 +1,46 @@
 # comlis-data-store
-Webから取得したデータをコムリスへ送るためのストアアプリ。  
-API設計やサーバーサイドkotlinの勉強を兼ねているので良いコードか疑問。
+This application is provides a REST API for save and retrieving company data.
+Also, This application also serves as a study of server side kotlin.
 
 # Environment
-* Spring Boot v1.5.4.RELEASE
-* Kotlin v1.1.4−3
-* Redis v4.0.1
-* docker for mac
-* docker-compose
-> Spring BootとRedisはそれぞれ別々のdockerコンテナで起動します。  
-使用しているイメージ等はdockerディレクトリのdocker-compose.ymlを確認ください。
-APIのテストはSwagger-uiで行なっております。
+- Kotlin v1.1.4−3
+- Spring Boot v1.5.4.RELEASE
+- Redis v4.0.1
 
-# Usage
-使い方です。
+# About using docker
+This application works with two docker containers.  
+These are managed by docker-compose.
+Please read the `docker/docker-compose.yml` for details.
+
+# Simple Run Example
+Here is an example using `docker for mac` in macOS Sierra.
 
 ## Step1
-本アプリはjarファイルを実行します。jarファイル置き場を適当に決めます。
-また、Redisのdbファイルの置き場所も決めます。
-決めたら`docker/docker-compose.yml`の`volumes`を修正します。
+Modified the `volumes` of the `docker/docker-compose.yml`.
+  - redis volumes: can be empty. `dump.rdb` is generated later.
+  - spring-boot volumes:
+```docker-compose.yml
+redis:
+  volumes:
+    - ~/Desktop/MyStudy/dockerShare/comlis-store:/data  <- modified
+spring-boot:
+  volumes:
+    - ~/Desktop/MyStudy/dockerShare/comlis-store:/app  <- modified
+```
 
 ## Step2
-gradlewのbuildを実行し、アプリのjarファイルを作成します。
-```command
-./gradlew build
-```
-build/libsディレクトリに`comlis-rest-service-0.1.0.jar`が出来ているはずです。
-それをStep1で決めたディレクトリにコピーします。
+Copy the jar file of this application to the directory specified by spring-boot volumes.
+The jar file to be copied is in `build/libs/comlis-rest-service.jar`
 
 ## Step3
-`docker-compose.yml`が置いてあるディレクトリに移動し、以下のコマンドを実行します。
+Change current directory where `docker-compose.yml` is located and run docker containers.
 ```command
+cd ./docker
 docker-compose up
 ```
 
 ## Step4
-Redis及びSpring-bootの起動ができたらブラウザで以下にアクセスします。
+After starting the containers, access the following in the browser and test the API.
 ```url
 http://localhost:8080/swagger-ui.html
 ```
-このUI上でSwaggerでAPIの検証をします。

@@ -1,6 +1,6 @@
 package jp.hotdrop.costore.repository
 
 /**
- * Redisのデータベースselect番号を定義
+ * select number of Redis database.
  */
 enum class DatabaseNo { Key, Company }

@@ -1,4 +1,8 @@
 .gradle
 .idea
 out
-build
+
+build/classes
+build/kotlin*
+build/resources
+build/tmp

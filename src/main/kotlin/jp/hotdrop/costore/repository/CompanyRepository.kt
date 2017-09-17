@@ -18,8 +18,8 @@ class CompanyRepository @Autowired constructor(
     }
 
     /**
-     * 拡張関数
-     * IDはKeyに使用するため、hashMapの対象にしない。
+     * Extention function.
+     * The ID is set as Key, so it is excluded from hashMap.
      */
     private fun Company.toHashMap(): HashMap<String, String?> =
             hashMapOf("name" to this.name,
@@ -30,8 +30,9 @@ class CompanyRepository @Autowired constructor(
                     "salaryHigh" to this.salaryHigh)
 
     /**
-     * Redisの書き方がここにあるのは嫌だが、HashMapのキー名と一致させなければならないため
-     * CompanyRepositoryで定義することにした。なお、最初の#はidを取得する指定。それ以降はHashMapと一致させる。
+     * It's not good that there is a way of writing Redis in CompanyRepository.kt.
+     * However, I decided to write it here because it must match key in HashMap.
+     * The first # specifies to acquire the ID.
      */
     private val takeParams =
             arrayOf("#",
@@ -44,7 +45,8 @@ class CompanyRepository @Autowired constructor(
 
     fun save(companies: List<Company>) {
         companies.forEach { company ->
-            // Hash型をsortする際、別途キーセットが必要となるのでsaddしている。
+            // The reason for sadd is because another key sets is required
+            //  when sorting Redis Hash type.
             jedis.sadd(INDEX_KEY_FOR_SORT, company.id)
             jedis.hmset(company.id, company.toHashMap())
         }
@@ -73,12 +75,14 @@ class CompanyRepository @Autowired constructor(
     }
 
     /**
-     * 引数のkeysを取得済みに更新する。
-     * 取得済みフラグカラムの追加を検討したが、Redisでそれを使うのは微妙。
-     * そのため、インデックスとして持っているKeyValueのSetから削除することで実現する。
+     * Make keys of the argument already acquired.
+     *
+     * First, I considered adding an aqcuired flag column,
+     *  but I understood that it is not good to use it with Redis.
+     * For the reasion, I decided to realize this function by deleting the key value from
+     *  Set which is the index for sorting company data.
      */
     fun updateAcquired(keys: List<String>) {
-        //Hash型のValueは削除しないのでそのまま残る。
         keys.forEach { jedis.srem(INDEX_KEY_FOR_SORT, it) }
     }
 }

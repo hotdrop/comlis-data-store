@@ -11,15 +11,16 @@ class CompanyService @Autowired constructor(
 ) {
 
     fun save(companies: List<Company>) {
-        // TODO 送信された値のバリデーションチェックが必要
+        // TODO implements validation check for POST data.
         repository.save(companies)
     }
 
     fun load(): List<Company>? = repository.load()
 
     /**
-     * 会社情報そのものは削除したくなかったため
-     * 次回以降、取得対象にしないようなカラムを用意してそこを更新する。
+     * I did not want to delete the company data itself.
+     * For that reason, I prepared a column that will not be subject to acquisition 
+     *  from the next time onwards, and expressed delete by updating it.
      */
     fun delete(ids: List<String>) {
         repository.updateAcquired(ids)
