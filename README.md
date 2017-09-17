@@ -1,5 +1,5 @@
 # comlis-data-store
-This application is provides a REST API for save and retrieving company data.
+This application is provides a REST API for save and retrieving company data.  
 Also, This application also serves as a study of server side kotlin.
 
 # Environment
@@ -9,7 +9,7 @@ Also, This application also serves as a study of server side kotlin.
 
 # About using docker
 This application works with two docker containers.  
-These are managed by docker-compose.
+These are managed by docker-compose.  
 Please read the `docker/docker-compose.yml` for details.
 
 # Simple Run Example
@@ -18,7 +18,7 @@ Here is an example using `docker for mac` in macOS Sierra.
 ## Step1
 Modified the `volumes` of the `docker/docker-compose.yml`.
   - redis volumes: can be empty. `dump.rdb` is generated later.
-  - spring-boot volumes:
+  - spring-boot volumes: into comlis-rest-service.jar(details Step2)
 ```docker-compose.yml
 redis:
   volumes:
@@ -29,8 +29,8 @@ spring-boot:
 ```
 
 ## Step2
-Copy the jar file of this application to the directory specified by spring-boot volumes.
-The jar file to be copied is in `build/libs/comlis-rest-service.jar`
+Copy the jar file of this application to the directory specified by spring-boot volumes.  
+The jar file to be copied is in `./build/libs/comlis-rest-service.jar`
 
 ## Step3
 Change current directory where `docker-compose.yml` is located and run docker containers.
