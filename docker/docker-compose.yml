@@ -1,14 +1,14 @@
 redis:
   image: redis
   volumes:
-    - ~/Desktop/MyStudy/dockerShare/comlis-store:/data
+    - [your work directory]:/data
   ports:
     - "6379:6379"
   command: redis-server
 spring-boot:
   image: bankmonitor/spring-boot
   volumes:
-    - ~/Desktop/MyStudy/dockerShare/comlis-store:/app
+    - [your work directory]:/app
   links:
     - redis:redis
   ports:
