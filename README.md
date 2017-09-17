@@ -4,7 +4,7 @@ Also, This application also serves as a study of server side kotlin.
 
 # Environment
 - Kotlin v1.1.4−3
-- Spring Boot v1.5.4.RELEASE
+- Spring Boot v1.5.7.RELEASE
 - Redis v4.0.1
 
 # About using docker
