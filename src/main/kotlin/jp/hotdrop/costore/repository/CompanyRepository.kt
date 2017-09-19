@@ -18,7 +18,7 @@ class CompanyRepository @Autowired constructor(
     }
 
     /**
-     * Extention function.
+     * Extension function.
      * The ID is set as Key, so it is excluded from hashMap.
      */
     private fun Company.toHashMap(): HashMap<String, String?> =
