@@ -43,13 +43,11 @@ class CompanyRepository @Autowired constructor(
                     "*->salaryLow",
                     "*->salaryHigh")
 
-    fun save(companies: List<Company>) {
-        companies.forEach { company ->
-            // The reason for sadd is because another key sets is required
-            //  when sorting Redis Hash type.
-            jedis.sadd(INDEX_KEY_FOR_SORT, company.id)
-            jedis.hmset(company.id, company.toHashMap())
-        }
+    fun save(company: Company) {
+        // The reason for sadd is because another key sets is required
+        //  when sorting Redis Hash type.
+        jedis.sadd(INDEX_KEY_FOR_SORT, company.id)
+        jedis.hmset(company.id, company.toHashMap())
     }
 
     fun load(): List<Company>? {
@@ -79,7 +77,7 @@ class CompanyRepository @Autowired constructor(
      *
      * First, I considered adding an aqcuired flag column,
      *  but I understood that it is not good to use it with Redis.
-     * For the reasion, I decided to realize this function by deleting the key value from
+     * For the reason, I decided to realize this function by deleting the key value from
      *  Set which is the index for sorting company data.
      */
     fun updateAcquired(keys: List<String>) {
