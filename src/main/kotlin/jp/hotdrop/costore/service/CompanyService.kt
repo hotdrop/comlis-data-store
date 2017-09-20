@@ -24,23 +24,13 @@ class CompanyService @Autowired constructor(
         }
     }
 
-    fun load(): List<Company>? {
-        val companies = repository.load()
+    fun load(fromDateEpoch: Long): List<Company>? {
+        val companies = repository.load(fromDateEpoch)
         if(companies == null) {
             log.info("There is no company data loaded.")
         } else {
             log.info("Number of loaded companies: ${companies.size}.")
         }
         return companies
-    }
-
-    /**
-     * I did not want to delete the company data itself.
-     * For that reason, I prepared a column that will not be subject to acquisition 
-     *  from the next time onwards, and expressed delete by updating it.
-     */
-    fun delete(ids: List<String>) {
-        log.info("Number of deleted company ids: ${ids.size}")
-        repository.updateAcquired(ids)
     }
 }

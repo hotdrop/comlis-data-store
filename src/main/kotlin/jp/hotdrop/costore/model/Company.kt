@@ -7,9 +7,11 @@ data class Company(
         val workPlace: String? = null,
         val employeesNum: String? = null,
         val salaryLow: String? = null,
-        val salaryHigh: String? = null
+        val salaryHigh: String? = null,
+        // If dateEpoch is null or not number, it can not be acquired with API.
+        val dateEpoch: String? = null
 ) {
     companion object {
-        val FIELD_NUM = 7
+        val FIELD_NUM = 8
     }
 }

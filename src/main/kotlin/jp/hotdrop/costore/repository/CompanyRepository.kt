@@ -27,7 +27,10 @@ class CompanyRepository @Autowired constructor(
                     "workPlace" to this.workPlace,
                     "employeesNum" to this.employeesNum,
                     "salaryLow" to this.salaryLow,
-                    "salaryHigh" to this.salaryHigh)
+                    "salaryHigh" to this.salaryHigh,
+                    "dateEpoch" to this.dateEpoch)
+
+    private fun String.isNumber() = this.all { it.isDigit() }
 
     /**
      * It's not good that there is a way of writing Redis in CompanyRepository.kt.
@@ -41,7 +44,8 @@ class CompanyRepository @Autowired constructor(
                     "*->workPlace",
                     "*->employeesNum",
                     "*->salaryLow",
-                    "*->salaryHigh")
+                    "*->salaryHigh",
+                    "*->dateEpoch")
 
     fun save(company: Company) {
         // The reason for sadd is because another key sets is required
@@ -50,37 +54,40 @@ class CompanyRepository @Autowired constructor(
         jedis.hmset(company.id, company.toHashMap())
     }
 
-    fun load(): List<Company>? {
+    fun load(fromDateEpoch: Long): List<Company>? {
 
         val sortingParams = SortingParams().asc().get(*takeParams).alpha()
         val results = jedis.sort(INDEX_KEY_FOR_SORT, sortingParams) ?: return null
 
         val companies = mutableListOf<Company>()
         val aggregationDataCount = results.size / Company.FIELD_NUM
-        (0 until aggregationDataCount)
-                .map { it -> it * Company.FIELD_NUM }
-                .mapTo(companies) {
-                    Company(
-                            id = results[0 + it],
-                            name = results[1 + it],
-                            overview = results[2 + it],
-                            workPlace = results[3 + it],
-                            employeesNum = results[4 + it],
-                            salaryLow = results[5 + it],
-                            salaryHigh = results[6 + it])
-                }
+
+        for(dataCnt in 0 until aggregationDataCount) {
+            val index = dataCnt * Company.FIELD_NUM
+            val companyDateEpoch = (results[7 + index])
+            if(isLoadTarget(fromDateEpoch, companyDateEpoch)) {
+                companies.add(Company(
+                        id = results[0 + index],
+                        name = results[1 + index],
+                        overview = results[2 + index],
+                        workPlace = results[3 + index],
+                        employeesNum = results[4 + index],
+                        salaryLow = results[5 + index],
+                        salaryHigh = results[6 + index],
+                        dateEpoch = results[7 + index])
+                )
+            }
+
+        }
         return companies
     }
 
-    /**
-     * Make keys of the argument already acquired.
-     *
-     * First, I considered adding an aqcuired flag column,
-     *  but I understood that it is not good to use it with Redis.
-     * For the reason, I decided to realize this function by deleting the key value from
-     *  Set which is the index for sorting company data.
-     */
-    fun updateAcquired(keys: List<String>) {
-        keys.forEach { jedis.srem(INDEX_KEY_FOR_SORT, it) }
+    private fun isLoadTarget(fromDateEpoch: Long, targetDateEpoch: String?): Boolean {
+        return when {
+            fromDateEpoch == 0L -> true
+            targetDateEpoch == null -> false
+            targetDateEpoch.isNumber() -> (targetDateEpoch.toLong() > fromDateEpoch)
+            else -> false
+        }
     }
 }

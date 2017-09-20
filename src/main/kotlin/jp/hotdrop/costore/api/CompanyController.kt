@@ -22,17 +22,11 @@ class CompanyController @Autowired constructor(
         service.save(companies)
     }
 
-    @ApiOperation(value = "Get companies data", notes = "Get companies data.")
+    @ApiOperation(value = "Get companies data", notes = "Get companies data. if fromDateEpoch param are specified, data after this date is acquired. ")
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    fun companies(): ResponseEntity<List<Company>> {
-        val companies = service.load() ?: return ResponseEntity(HttpStatus.NO_CONTENT)
+    fun companies(@ApiParam(value = "fromDateEpoch")
+                  @RequestParam fromDateEpoch: Long = 0): ResponseEntity<List<Company>> {
+        val companies = service.load(fromDateEpoch) ?: return ResponseEntity(HttpStatus.NO_CONTENT)
         return ResponseEntity.ok(companies)
-    }
-
-    @ApiOperation(value = "Delete companies data", notes = "Delete companies data.")
-    @RequestMapping(method = arrayOf(RequestMethod.DELETE))
-    fun doNotSendNextIds(@ApiParam(value = "ID of company data to delete")
-                         @RequestBody ids: List<String>) {
-        service.delete(ids)
     }
 }
