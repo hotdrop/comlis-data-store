@@ -13,4 +13,4 @@ spring-boot:
     - redis:redis
   ports:
     - "8080:8080"
-  command: java -jar ./comlis-rest-service.jar
+  command: java -jar ./comlis-store.jar

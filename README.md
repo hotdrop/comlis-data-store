@@ -30,7 +30,7 @@ spring-boot:
 
 ## Step2
 Copy the jar file of this application to the directory specified by spring-boot volumes.  
-The jar file to be copied is in `./build/libs/comlis-rest-service.jar`
+The jar file to be copied is in `./build/libs/comlis-store.jar`
 
 ## Step3
 Change current directory where `docker-compose.yml` is located and run docker containers.
