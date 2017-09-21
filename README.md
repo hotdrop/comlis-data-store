@@ -22,10 +22,10 @@ Modified the `volumes` of the `docker/docker-compose.yml`.
 ```docker-compose.yml
 redis:
   volumes:
-    - ~/Desktop/MyStudy/dockerShare/comlis-store:/data  <- modified
+    - [your work directory]:/data  <- modified
 spring-boot:
   volumes:
-    - ~/Desktop/MyStudy/dockerShare/comlis-store:/app  <- modified
+    - [your work directory]:/app  <- modified
 ```
 
 ## Step2
