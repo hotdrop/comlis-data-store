@@ -44,3 +44,19 @@ After starting the containers, access the following in the browser and test the 
 ```url
 http://localhost:8080/swagger-ui.html
 ```
+
+# API
+## 1. /scraping/lastItemKey  
+
+| No |Method|param| body | Notes |
+|:--:|:----:|:---:|:----:|:----- |
+| 1  |POST  |  -  |String| -   |
+| 2  |GET   |  -  |String| When there is no data: status = NO_CONTENT |
+| 3  |DELETE| Int |  -   | It can not be deleted unless the Number of this parameter matches the one in the code for verification. |
+
+## 2. /companies
+
+| No |Method|param|       body      | Notes |
+|:--:|:----:|:---:|:---------------:|:----- |
+| 1  |POST  |  -  |JSON type:Company| When ID or Name in JSON Data are null or empty = status:Bad request |
+| 2  |GET   |fromDateEpoch |JSON type:Company| When there is no data = status:NO_CONTENT <BR><BR> fromDateEpoch acquires subsequent company for company.dateEpoch.I <BR> If dateEpoch is null or not number, it can not be acquired with API. |
