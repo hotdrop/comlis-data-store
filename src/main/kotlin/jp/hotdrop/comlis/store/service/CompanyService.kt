@@ -1,8 +1,8 @@
-package jp.hotdrop.costore.service
+package jp.hotdrop.comlis.store.service
 
-import jp.hotdrop.costore.exception.ComlisException
-import jp.hotdrop.costore.model.Company
-import jp.hotdrop.costore.repository.CompanyRepository
+import jp.hotdrop.comlis.store.exception.ComlisException
+import jp.hotdrop.comlis.store.model.Company
+import jp.hotdrop.comlis.store.repository.CompanyRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -12,7 +12,7 @@ class CompanyService @Autowired constructor(
         val repository: CompanyRepository
 ) {
 
-    private val log = LoggerFactory.getLogger("jp.hotdrop.costore.trace")
+    private val log = LoggerFactory.getLogger("jp.hotdrop.comlis.store.trace")
 
     fun save(companies: List<Company>) {
         log.info("Number of saved companies: ${companies.size}")

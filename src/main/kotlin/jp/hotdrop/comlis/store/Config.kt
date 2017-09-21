@@ -1,4 +1,4 @@
-package jp.hotdrop.costore
+package jp.hotdrop.comlis.store
 
 import org.springframework.context.annotation.Configuration
 import springfox.documentation.swagger2.annotations.EnableSwagger2

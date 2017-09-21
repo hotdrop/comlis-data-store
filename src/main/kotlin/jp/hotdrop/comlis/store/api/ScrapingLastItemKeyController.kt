@@ -1,8 +1,8 @@
-package jp.hotdrop.costore.api
+package jp.hotdrop.comlis.store.api
 
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
-import jp.hotdrop.costore.service.ScrapingLastItemKeyService
+import jp.hotdrop.comlis.store.service.ScrapingLastItemKeyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

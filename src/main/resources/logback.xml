@@ -45,12 +45,12 @@
         </encoder>
     </appender>
 
-    <logger name="jp.hotdrop.costore.access" additivity="false">
+    <logger name="jp.hotdrop.comlis.store.access" additivity="false">
         <level value="INFO" />
         <appender-ref ref="ACCESS" />
     </logger>
 
-    <logger name="jp.hotdrop.costore.trace" additivity="true">
+    <logger name="jp.hotdrop.comlis.store.trace" additivity="true">
         <level value="INFO" />
         <appender-ref ref="TRACE" />
     </logger>

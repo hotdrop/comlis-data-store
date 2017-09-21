@@ -1,4 +1,4 @@
-package jp.hotdrop.costore.repository
+package jp.hotdrop.comlis.store.repository
 
 /**
  * select number of Redis database.

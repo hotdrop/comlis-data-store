@@ -1,6 +1,6 @@
-package jp.hotdrop.costore.repository
+package jp.hotdrop.comlis.store.repository
 
-import jp.hotdrop.costore.repository.config.RedisProperties
+import jp.hotdrop.comlis.store.repository.config.RedisProperties
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 

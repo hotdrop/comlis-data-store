@@ -1,4 +1,4 @@
-package jp.hotdrop.costore.exception
+package jp.hotdrop.comlis.store.exception
 
 class ComlisException constructor(
         val status: Int,

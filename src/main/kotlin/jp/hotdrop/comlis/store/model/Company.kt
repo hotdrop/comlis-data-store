@@ -1,4 +1,4 @@
-package jp.hotdrop.costore.model
+package jp.hotdrop.comlis.store.model
 
 data class Company(
         val id: String = "",

@@ -1,6 +1,6 @@
-package jp.hotdrop.costore.service
+package jp.hotdrop.comlis.store.service
 
-import jp.hotdrop.costore.repository.KeyRepository
+import jp.hotdrop.comlis.store.repository.KeyRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

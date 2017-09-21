@@ -1,4 +1,4 @@
-package jp.hotdrop.costore.repository.config
+package jp.hotdrop.comlis.store.repository.config
 
 import org.hibernate.validator.constraints.NotEmpty
 import org.springframework.boot.context.properties.ConfigurationProperties

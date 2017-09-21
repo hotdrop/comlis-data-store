@@ -1,4 +1,4 @@
-package jp.hotdrop.costore.filter
+package jp.hotdrop.comlis.store.filter
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class LoggingFilter: Filter {
 
-    private val log = LoggerFactory.getLogger("jp.hotdrop.costore.access")
+    private val log = LoggerFactory.getLogger("jp.hotdrop.comlis.store.access")
 
     override fun init(filterConfig: FilterConfig?) {
     }

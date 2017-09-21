@@ -1,4 +1,4 @@
-package jp.hotdrop.costore.exception
+package jp.hotdrop.comlis.store.exception
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.web.ErrorAttributes

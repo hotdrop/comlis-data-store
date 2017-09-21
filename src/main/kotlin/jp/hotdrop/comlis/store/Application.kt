@@ -1,4 +1,4 @@
-package jp.hotdrop.costore
+package jp.hotdrop.comlis.store
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
