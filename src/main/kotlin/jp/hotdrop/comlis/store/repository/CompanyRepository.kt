@@ -1,7 +1,7 @@
-package jp.hotdrop.costore.repository
+package jp.hotdrop.comlis.store.repository
 
-import jp.hotdrop.costore.model.Company
-import jp.hotdrop.costore.repository.config.RedisProperties
+import jp.hotdrop.comlis.store.model.Company
+import jp.hotdrop.comlis.store.repository.config.RedisProperties
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import redis.clients.jedis.SortingParams
@@ -62,23 +62,19 @@ class CompanyRepository @Autowired constructor(
         val companies = mutableListOf<Company>()
         val aggregationDataCount = results.size / Company.FIELD_NUM
 
-        for(dataCnt in 0 until aggregationDataCount) {
-            val index = dataCnt * Company.FIELD_NUM
-            val companyDateEpoch = (results[7 + index])
-            if(isLoadTarget(fromDateEpoch, companyDateEpoch)) {
-                companies.add(Company(
-                        id = results[0 + index],
-                        name = results[1 + index],
-                        overview = results[2 + index],
-                        workPlace = results[3 + index],
-                        employeesNum = results[4 + index],
-                        salaryLow = results[5 + index],
-                        salaryHigh = results[6 + index],
-                        dateEpoch = results[7 + index])
-                )
-            }
-
-        }
+        (0 until aggregationDataCount)
+                .map { it * Company.FIELD_NUM }
+                .filter { isLoadTarget(fromDateEpoch, results[7 + it]) }
+                .mapTo(companies) {
+                    Company(id = results[0 + it],
+                            name = results[1 + it],
+                            overview = results[2 + it],
+                            workPlace = results[3 + it],
+                            employeesNum = results[4 + it],
+                            salaryLow = results[5 + it],
+                            salaryHigh = results[6 + it],
+                            dateEpoch = results[7 + it])
+                }
         return companies
     }
 
