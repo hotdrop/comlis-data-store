@@ -15,6 +15,4 @@ class CompanyRepository @Autowired constructor(
 
     fun load(fromDateEpoch: Long): List<Company>? =
             dbClient.findCompanies(fromDateEpoch)
-
-
 }
