@@ -12,7 +12,7 @@ data class RedisProperties(
         @NotEmpty
         var host: String? = null,
 
-        @Min(1)
+        @Min(1024)
         @Max(65535)
         var port: Int ?= null
 )
