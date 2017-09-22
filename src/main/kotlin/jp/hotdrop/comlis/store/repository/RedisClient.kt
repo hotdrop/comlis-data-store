@@ -48,6 +48,7 @@ class RedisClient @Autowired constructor(
                     "employeesNum" to this.employeesNum,
                     "salaryLow" to this.salaryLow,
                     "salaryHigh" to this.salaryHigh,
+                    "url" to this.url,
                     "dateEpoch" to this.dateEpoch)
 
     fun saveCompany(company: Company) {
@@ -65,7 +66,7 @@ class RedisClient @Autowired constructor(
         val companies = mutableListOf<Company>()
         (0 until aggregationDataCount)
                 .map { it * Company.FIELD_NUM }
-                .filter { isLoadTarget(fromDateEpoch, rawData[7 + it]) }
+                .filter { isLoadTarget(fromDateEpoch, rawData[8 + it]) }
                 .mapTo(companies) {
                     Company(id = rawData[0 + it],
                             name = rawData[1 + it],
@@ -74,7 +75,8 @@ class RedisClient @Autowired constructor(
                             employeesNum = rawData[4 + it],
                             salaryLow = rawData[5 + it],
                             salaryHigh = rawData[6 + it],
-                            dateEpoch = rawData[7 + it])
+                            url = rawData[7 + it],
+                            dateEpoch = rawData[8 + it])
                 }
         return companies
     }
@@ -92,6 +94,7 @@ class RedisClient @Autowired constructor(
                     "*->employeesNum",
                     "*->salaryLow",
                     "*->salaryHigh",
+                    "*->url",
                     "*->dateEpoch")
 
     private fun selectRawDataWithSort(): List<String>? {
