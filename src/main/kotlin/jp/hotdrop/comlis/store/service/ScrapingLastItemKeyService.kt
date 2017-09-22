@@ -10,13 +10,17 @@ class ScrapingLastItemKeyService @Autowired constructor(
 ) {
 
     fun find(): String? =
-            repository.findLastItemKey()
+        if(repository.exists()) {
+            repository.find()
+        } else {
+            null
+        }
 
     fun save(lastCompanyKey: String) {
-        repository.saveLastItemKey(lastCompanyKey)
+        repository.save(lastCompanyKey)
     }
 
     fun delete() {
-        repository.deleteLastItemKey()
+        repository.delete()
     }
 }
