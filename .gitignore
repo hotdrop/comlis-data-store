@@ -7,3 +7,8 @@ build/classes
 build/kotlin*
 build/resources
 build/tmp
+
+# my local environment files
+myBuild.sh
+src/main/resources/application-dev.yml
+src/main/resources/application-docker.yml
