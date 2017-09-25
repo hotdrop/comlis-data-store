@@ -17,8 +17,6 @@ Here is an example using `docker for mac` in macOS Sierra.
 
 ## Step1
 Modified the `volumes` of the `docker/docker-compose.yml`.
-  - redis volumes: can be empty. `dump.rdb` is generated later.
-  - spring-boot volumes: into comlis-rest-service.jar(details Step2)
 ```docker-compose.yml
 redis:
   volumes:
@@ -27,22 +25,40 @@ spring-boot:
   volumes:
     - [your work directory]:/app  <- modified
 ```
+  - redis.volumes  
+    Can be empty. This volumes generated `dump.rdb` after running redis on docker.
+  - spring-boot.volumes  
+    Into `env/server.keystore`(details Step2) and `comlis-store.jar`(details Step4)
 
 ## Step2
-Copy the jar file of this application to the directory specified by spring-boot volumes.  
-The jar file to be copied is in `./build/libs/comlis-store.jar`
+This application using https. Therefore, you need to prepare `server.keystore`.  
+:memo: What keystore file is that pkcs12(together key and crt) file is registered to Java key Store.  
 
 ## Step3
-Change current directory where `docker-compose.yml` is located and run docker containers.
-```command
-cd ./docker
-docker-compose up
-```
+Modified XXXX in `application.yml` of the `src/main/resources`.  
+Default port number: Redis is 6379, Spring-boot is 8080.:-1: But not good default port.
 
 ## Step4
-After starting the containers, access the following in the browser and test the API.
+Make jar file of this application and copy to the directory specified by spring-boot volumes.  
+How to make a jar file is `./gradlew build`.  
+After executing command successfully, created jar file to `build/libs/`.
+
+## Step5
+Change current directory where `docker-compose.yml` is located and run docker containers.
+```command
+> cd ./docker
+> docker-compose up
+
+or
+
+> docker-compose -f ./docker/docker-compose.yml up
+```
+
+## Step6
+After starting the docker containers, access the following in the browser and test the API.
 ```url
-http://localhost:8080/swagger-ui.html
+https://localhost:XXXX/swagger-ui.html
+※ XXXX: Please rewrite the port number of application.yml you set in Step3.
 ```
 
 # API
