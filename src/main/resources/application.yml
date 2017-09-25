@@ -1,6 +1,10 @@
 spring:
   redis:
     host: 'redis'
-    port: 6379
+    port: XXXX
 server:
-  port: 8080
+  port: XXXX
+  ssl:
+    key-store: XXXX
+    key-store-password: XXXX
+    key-password: XXXX
