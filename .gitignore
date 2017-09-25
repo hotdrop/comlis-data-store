@@ -2,13 +2,12 @@
 .idea
 out
 logs
-
-build/classes
-build/kotlin*
-build/resources
-build/tmp
+build
 
 # my local environment files
 myBuild.sh
 src/main/resources/application-dev.yml
 src/main/resources/application-docker.yml
+
+# ssl setting files
+env
