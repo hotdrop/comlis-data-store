@@ -5,6 +5,8 @@ spring:
 server:
   port: XXXX
   ssl:
-    key-store: XXXX
+    key-store: XXXX.keystore
     key-store-password: XXXX
     key-password: XXXX
+  http:
+    port: XXXX
