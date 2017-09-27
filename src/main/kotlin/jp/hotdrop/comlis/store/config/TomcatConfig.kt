@@ -1,4 +1,4 @@
-package jp.hotdrop.comlis.store
+package jp.hotdrop.comlis.store.config
 
 import org.apache.catalina.connector.Connector
 import org.springframework.beans.factory.annotation.Value
